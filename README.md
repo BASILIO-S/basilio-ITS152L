@@ -1,1 +1,3 @@
-# basilio-ITS152L
+Stephanie Basilio
+ITS152L-FOPM01
+BSIT
