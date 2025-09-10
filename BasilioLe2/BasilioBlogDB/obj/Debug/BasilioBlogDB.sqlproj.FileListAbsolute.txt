@@ -1,0 +1,10 @@
+C:\Users\Sol\source\repos\BasilioLE2\BasilioBlogDB\bin\Debug\BasilioBlogDB.dacpac
+C:\Users\Sol\source\repos\BasilioLE2\BasilioBlogDB\bin\Debug\BasilioBlogDB.dll
+C:\Users\Sol\source\repos\BasilioLE2\BasilioBlogDB\bin\Debug\BasilioBlogDB.pdb
+C:\Users\Sol\source\repos\BasilioLE2\BasilioBlogDB\obj\Debug\BasilioBlogDB.sqlproj.AssemblyReference.cache
+C:\Users\Sol\source\repos\BasilioLE2\BasilioBlogDB\obj\Debug\BasilioBlogDB.dll
+C:\Users\Sol\source\repos\BasilioLE2\BasilioBlogDB\obj\Debug\BasilioBlogDB.pdb
+C:\Users\Sol\source\repos\BasilioLE2\BasilioBlogDB\obj\Debug\Model.xml
+C:\Users\Sol\source\repos\BasilioLE2\BasilioBlogDB\obj\Debug\refactor.xml
+C:\Users\Sol\source\repos\BasilioLE2\BasilioBlogDB\obj\Debug\postdeploy.sql
+C:\Users\Sol\source\repos\BasilioLE2\BasilioBlogDB\obj\Debug\predeploy.sql

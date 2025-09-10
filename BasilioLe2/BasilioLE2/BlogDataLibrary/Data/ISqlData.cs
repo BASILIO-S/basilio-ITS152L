@@ -1,0 +1,14 @@
+﻿using BlogDataLibrary.Models;
+using System.Collections.Generic;
+
+namespace BlogDataLibrary.Data
+{
+    public interface ISqlData
+    {
+        void AddPost(PostModel post);
+        UserModel Authenticate(string username, string password);
+        List<ListPostModel> ListPosts();
+        void Register(string userName, string firstName, string lastName, string password);
+        ListPostModel ShowPostDetails(int id);
+    }
+}
