@@ -1,0 +1,26 @@
+<h2>Login</h2>
+
+<form (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+  <label for="userName">Username</label>
+  <input
+    type="text"
+    name="userName"
+    [(ngModel)]="form.userName"
+    required
+    #userName="ngModel"
+  />
+
+  <label for="password">Password</label>
+  <input
+    type="password"
+    name="password"
+    [(ngModel)]="form.password"
+    required
+    #password="ngModel"
+  />
+
+  <button type="submit">Login</button>
+</form>
+
+<p>Don't have an account?</p>
+<button type="button" (click)="goToRegister()">Register</button>
