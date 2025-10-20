@@ -1,0 +1,6 @@
+@G5M2_HostAddress = http://localhost:5050
+
+GET {{G5M2_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
