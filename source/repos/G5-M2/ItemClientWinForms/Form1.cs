@@ -1,10 +1,10 @@
 using ItemClientWinForms.Models;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace ItemClientWinForms
 {
@@ -15,9 +15,8 @@ namespace ItemClientWinForms
         public Form1()
         {
             InitializeComponent();
-            _client = new HttpClient { BaseAddress = new Uri("https://localhost:7298/") };
+            _client = new HttpClient { BaseAddress = new Uri("https://localhost:7275/") };
         }
-
 
         // Load all items from API
         private async Task LoadItems()
@@ -47,16 +46,22 @@ namespace ItemClientWinForms
                 UnitPrice = decimal.TryParse(txtUnitPrice.Text, out var p) ? p : 0
             };
 
-            var resp = await _client.PostAsJsonAsync("api/items", item);
-            if (resp.IsSuccessStatusCode)
+            try
             {
-                await LoadItems();
-                ClearFields();
+                var resp = await _client.PostAsJsonAsync("api/items", item);
+                if (resp.IsSuccessStatusCode)
+                {
+                    await LoadItems();
+                    ClearFields();
+                }
+                else
+                {
+                    MessageBox.Show($"Error adding item: {resp.StatusCode}");
+                }
             }
-            elseSystem.Net.Http.HttpRequestException: 'No connection could be made because the target machine actively refused it. (localhost:7298)'
-
+            catch (HttpRequestException ex)
             {
-                MessageBox.Show($"Error adding item: {resp.StatusCode}");
+                MessageBox.Show($"Connection error: {ex.Message}");
             }
         }
 
@@ -122,14 +127,16 @@ namespace ItemClientWinForms
             txtUnitPrice.Clear();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
+        private void button1_Click(object sender, EventArgs e) { }
 
-        }
+        private void label1_Click(object sender, EventArgs e) { }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
+        private void Form1_Load(object sender, EventArgs e) { }
 
-        }
+        private void dgvItems_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+
+        private void Form1_Load_1(object sender, EventArgs e) { }
+
+        private void label5_Click(object sender, EventArgs e) { }
     }
 }
