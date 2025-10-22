@@ -26,9 +26,54 @@ namespace G5M2.Controllers
             return item;
         }
 
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<Item>>> Search([FromQuery] string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return BadRequest("Search term required.");
+
+            var results = await _db.Items
+                .Where(i => i.Name.Contains(query) || i.Code.Contains(query) || i.Brand.Contains(query))
+                .ToListAsync();
+
+            if (results.Count == 0) return NotFound("No items found.");
+            return Ok(results);
+        }
+
+        [HttpGet("paged")]
+        public async Task<ActionResult<IEnumerable<Item>>> GetPaged([FromQuery] int page = 1, [FromQuery] int size = 10)
+        {
+            var items = await _db.Items
+                .Skip((page - 1) * size)
+                .Take(size)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return Ok(items);
+        }
+
+        [HttpGet("sort")]
+        public async Task<ActionResult<IEnumerable<Item>>> Sort([FromQuery] string by = "name")
+        {
+            IQueryable<Item> query = _db.Items;
+
+            query = by.ToLower() switch
+            {
+                "price" => query.OrderBy(i => i.UnitPrice),
+                "brand" => query.OrderBy(i => i.Brand),
+                _ => query.OrderBy(i => i.Name),
+            };
+
+            return Ok(await query.ToListAsync());
+        }
+
+
         [HttpPost]
         public async Task<ActionResult<Item>> Create([FromBody] Item item)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             _db.Items.Add(item);
             await _db.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = item.Id }, item);

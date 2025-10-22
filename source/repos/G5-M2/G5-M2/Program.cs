@@ -25,6 +25,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler("/error");
+app.Map("/error", (HttpContext http) =>
+{
+    var feature = http.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>();
+    var error = feature?.Error;
+    return Results.Problem(error?.Message ?? "An unknown error occurred.");
+});
+
+
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
