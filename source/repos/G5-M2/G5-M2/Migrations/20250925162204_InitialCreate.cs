@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace BasilioM1.Migrations
+namespace G5M2.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
