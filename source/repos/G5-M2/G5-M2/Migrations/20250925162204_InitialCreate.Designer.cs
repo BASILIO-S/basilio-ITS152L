@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace G5M2.Migrations
+namespace BasilioM1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20250925162204_InitialCreate")]
