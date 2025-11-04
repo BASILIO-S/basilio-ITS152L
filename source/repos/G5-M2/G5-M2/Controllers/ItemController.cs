@@ -2,6 +2,7 @@
 using G5M2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace G5M2.Controllers
 {
@@ -27,16 +28,20 @@ namespace G5M2.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<Item>>> Search([FromQuery] string query)
+        public IActionResult SearchItems([FromQuery] string query)
         {
             if (string.IsNullOrWhiteSpace(query))
-                return BadRequest("Search term required.");
+                return BadRequest("Search query cannot be empty.");
 
-            var results = await _db.Items
-                .Where(i => i.Name.Contains(query) || i.Code.Contains(query) || i.Brand.Contains(query))
-                .ToListAsync();
+            var results = _db.Items
+                .Where(i => i.Name.Contains(query) ||
+                            i.Code.Contains(query) ||
+                            i.Brand.Contains(query))
+                .ToList();
 
-            if (results.Count == 0) return NotFound("No items found.");
+            if (results.Count == 0)
+                return NotFound("No items matched your search.");
+
             return Ok(results);
         }
 
@@ -65,6 +70,31 @@ namespace G5M2.Controllers
             };
 
             return Ok(await query.ToListAsync());
+        }
+
+        [HttpGet("export")]
+        public IActionResult ExportItemsToCsv()
+        {
+            var items = _db.Items.ToList();
+
+            if (items.Count == 0)
+                return NotFound("No items available to export.");
+
+            var csv = new StringBuilder();
+            csv.AppendLine("Id,Code,Name,Brand,UnitPrice");
+
+            foreach (var i in items)
+            {
+                csv.AppendLine($"{i.Id},{i.Code},{i.Name},{i.Brand},{i.UnitPrice}");
+            }
+
+            var bytes = Encoding.UTF8.GetBytes(csv.ToString());
+            var result = new FileContentResult(bytes, "text/csv")
+            {
+                FileDownloadName = $"Items_{DateTime.Now:yyyyMMdd_HHmm}.csv"
+            };
+
+            return result;
         }
 
 

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("G5M2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+79e328801dbb96d2a5dff1f8834e630dd39da50f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36f4914f0373e84d47fd3684ab3b9d3c1694271b")]
 [assembly: System.Reflection.AssemblyProductAttribute("G5M2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("G5M2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

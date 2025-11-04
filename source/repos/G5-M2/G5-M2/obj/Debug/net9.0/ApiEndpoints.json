@@ -1,6 +1,6 @@
 [
   {
-    "ContainingType": "BasilioM1.Controllers.ItemsController",
+    "ContainingType": "G5M2.Controllers.ItemsController",
     "Method": "GetAll",
     "RelativePath": "api/Items",
     "HttpMethod": "GET",
@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[BasilioM1.Models.Item, G5M2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[G5M2.Models.Item, G5M2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -20,7 +20,7 @@
     ]
   },
   {
-    "ContainingType": "BasilioM1.Controllers.ItemsController",
+    "ContainingType": "G5M2.Controllers.ItemsController",
     "Method": "Create",
     "RelativePath": "api/Items",
     "HttpMethod": "POST",
@@ -29,13 +29,13 @@
     "Parameters": [
       {
         "Name": "item",
-        "Type": "BasilioM1.Models.Item",
+        "Type": "G5M2.Models.Item",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "BasilioM1.Models.Item",
+        "Type": "G5M2.Models.Item",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "ContainingType": "BasilioM1.Controllers.ItemsController",
+    "ContainingType": "G5M2.Controllers.ItemsController",
     "Method": "Get",
     "RelativePath": "api/Items/{id}",
     "HttpMethod": "GET",
@@ -61,7 +61,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "BasilioM1.Models.Item",
+        "Type": "G5M2.Models.Item",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -72,7 +72,7 @@
     ]
   },
   {
-    "ContainingType": "BasilioM1.Controllers.ItemsController",
+    "ContainingType": "G5M2.Controllers.ItemsController",
     "Method": "Update",
     "RelativePath": "api/Items/{id}",
     "HttpMethod": "PUT",
@@ -86,14 +86,14 @@
       },
       {
         "Name": "updated",
-        "Type": "BasilioM1.Models.Item",
+        "Type": "G5M2.Models.Item",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BasilioM1.Controllers.ItemsController",
+    "ContainingType": "G5M2.Controllers.ItemsController",
     "Method": "Delete",
     "RelativePath": "api/Items/{id}",
     "HttpMethod": "DELETE",
@@ -107,5 +107,88 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "G5M2.Controllers.ItemsController",
+    "Method": "ExportItemsToCsv",
+    "RelativePath": "api/Items/export",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "G5M2.Controllers.ItemsController",
+    "Method": "GetPaged",
+    "RelativePath": "api/Items/paged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "size",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[G5M2.Models.Item, G5M2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "G5M2.Controllers.ItemsController",
+    "Method": "SearchItems",
+    "RelativePath": "api/Items/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "G5M2.Controllers.ItemsController",
+    "Method": "Sort",
+    "RelativePath": "api/Items/sort",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "by",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[G5M2.Models.Item, G5M2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

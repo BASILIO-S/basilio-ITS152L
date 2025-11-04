@@ -149,10 +149,10 @@ C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\staticwebassets.build.jso
 C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\G5M2.csproj.Up2Date
 C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\G5M2.dll
 C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\refint\G5M2.dll
 C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\G5M2.pdb
 C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\G5M2.genruntimeconfig.cache
 C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\ref\G5M2.dll
+C:\Users\Sol\source\repos\G5-M2\G5-M2\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
