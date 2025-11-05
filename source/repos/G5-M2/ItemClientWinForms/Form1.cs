@@ -1,3 +1,4 @@
+using System.IO;
 using ItemClientWinForms.Models;
 using System;
 using System.Collections.Generic;
@@ -12,19 +13,28 @@ namespace ItemClientWinForms
     {
         private readonly HttpClient _client;
 
+        // ✅ List to hold original data for searching
+        private List<Item> _itemsList = new List<Item>();
+
         public Form1()
         {
             InitializeComponent();
-            _client = new HttpClient { BaseAddress = new Uri("https://localhost:7275/") };
+            _client = new HttpClient { BaseAddress = new Uri("https://localhost:7298/") };
         }
 
-        // Load all items from API
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            await LoadItems();
+        }
+
+        // ✅ Load data into list AND grid
         private async Task LoadItems()
         {
             try
             {
-                var items = await _client.GetFromJsonAsync<List<Item>>("api/items");
-                dgvItems.DataSource = items;
+                _itemsList = await _client.GetFromJsonAsync<List<Item>>("api/items");
+                dgvItems.DataSource = null;
+                dgvItems.DataSource = _itemsList;
             }
             catch (Exception ex)
             {
@@ -32,10 +42,9 @@ namespace ItemClientWinForms
             }
         }
 
-        // Refresh button
         private async void btnRefresh_Click(object sender, EventArgs e) => await LoadItems();
 
-        // Add button
+        // ✅ Add
         private async void btnAdd_Click(object sender, EventArgs e)
         {
             var item = new Item
@@ -54,10 +63,7 @@ namespace ItemClientWinForms
                     await LoadItems();
                     ClearFields();
                 }
-                else
-                {
-                    MessageBox.Show($"Error adding item: {resp.StatusCode}");
-                }
+                else MessageBox.Show($"Error adding item: {resp.StatusCode}");
             }
             catch (HttpRequestException ex)
             {
@@ -65,7 +71,7 @@ namespace ItemClientWinForms
             }
         }
 
-        // Update button
+        // ✅ Update
         private async void btnUpdate_Click(object sender, EventArgs e)
         {
             if (dgvItems.CurrentRow == null) return;
@@ -82,13 +88,10 @@ namespace ItemClientWinForms
                 await LoadItems();
                 ClearFields();
             }
-            else
-            {
-                MessageBox.Show($"Error updating item: {resp.StatusCode}");
-            }
+            else MessageBox.Show($"Error updating item: {resp.StatusCode}");
         }
 
-        // Delete button
+        // ✅ Delete
         private async void btnDelete_Click(object sender, EventArgs e)
         {
             if (dgvItems.CurrentRow == null) return;
@@ -100,13 +103,10 @@ namespace ItemClientWinForms
                 await LoadItems();
                 ClearFields();
             }
-            else
-            {
-                MessageBox.Show($"Error deleting item: {resp.StatusCode}");
-            }
+            else MessageBox.Show($"Error deleting item: {resp.StatusCode}");
         }
 
-        // When selecting a row in DataGridView
+        // ✅ When selecting row
         private void dgvItems_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvItems.CurrentRow == null) return;
@@ -118,7 +118,6 @@ namespace ItemClientWinForms
             txtUnitPrice.Text = item.UnitPrice.ToString();
         }
 
-        // Helper: clear textboxes
         private void ClearFields()
         {
             txtName.Clear();
@@ -127,16 +126,55 @@ namespace ItemClientWinForms
             txtUnitPrice.Clear();
         }
 
-        private void button1_Click(object sender, EventArgs e) { }
+        // ✅ FIXED SEARCH — case-insensitive & no crash
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string q = txtSearch.Text.Trim().ToLower();
 
-        private void label1_Click(object sender, EventArgs e) { }
+            if (string.IsNullOrEmpty(q))
+            {
+                dgvItems.DataSource = null;
+                dgvItems.DataSource = _itemsList; // restore original data
+                return;
+            }
 
-        private void Form1_Load(object sender, EventArgs e) { }
+            var filtered = _itemsList.FindAll(item =>
+                (item.Name != null && item.Name.ToLower().Contains(q)) ||
+                (item.Code != null && item.Code.ToLower().Contains(q)) ||
+                (item.Brand != null && item.Brand.ToLower().Contains(q)) ||
+                item.UnitPrice.ToString().ToLower().Contains(q)
+            );
 
-        private void dgvItems_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+            dgvItems.DataSource = null;
+            dgvItems.DataSource = filtered;
+        }
 
-        private void Form1_Load_1(object sender, EventArgs e) { }
+        // 📤 Export to CSV
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "CSV file (*.csv)|*.csv";
 
-        private void label5_Click(object sender, EventArgs e) { }
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(sfd.FileName))
+                {
+                    for (int i = 0; i < dgvItems.Columns.Count; i++)
+                        sw.Write(dgvItems.Columns[i].HeaderText + (i < dgvItems.Columns.Count - 1 ? "," : ""));
+
+                    sw.WriteLine();
+
+                    foreach (DataGridViewRow row in dgvItems.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+
+                        for (int i = 0; i < dgvItems.Columns.Count; i++)
+                            sw.Write(row.Cells[i].Value?.ToString() + (i < dgvItems.Columns.Count - 1 ? "," : ""));
+
+                        sw.WriteLine();
+                    }
+                }
+            }
+        }
     }
 }
