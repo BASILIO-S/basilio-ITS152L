@@ -13,7 +13,7 @@ namespace ItemClientWinForms
     {
         private readonly HttpClient _client;
 
-        // ✅ List to hold original data for searching
+        // List to hold original data for searching
         private List<Item> _itemsList = new List<Item>();
 
         public Form1()
@@ -27,7 +27,7 @@ namespace ItemClientWinForms
             await LoadItems();
         }
 
-        // ✅ Load data into list AND grid
+        // Load data into list AND grid
         private async Task LoadItems()
         {
             try
@@ -44,7 +44,7 @@ namespace ItemClientWinForms
 
         private async void btnRefresh_Click(object sender, EventArgs e) => await LoadItems();
 
-        // ✅ Add
+        // Add
         private async void btnAdd_Click(object sender, EventArgs e)
         {
             var item = new Item
@@ -71,7 +71,7 @@ namespace ItemClientWinForms
             }
         }
 
-        // ✅ Update
+        //  Update
         private async void btnUpdate_Click(object sender, EventArgs e)
         {
             if (dgvItems.CurrentRow == null) return;
@@ -91,7 +91,7 @@ namespace ItemClientWinForms
             else MessageBox.Show($"Error updating item: {resp.StatusCode}");
         }
 
-        // ✅ Delete
+        //  Delete
         private async void btnDelete_Click(object sender, EventArgs e)
         {
             if (dgvItems.CurrentRow == null) return;
@@ -106,7 +106,7 @@ namespace ItemClientWinForms
             else MessageBox.Show($"Error deleting item: {resp.StatusCode}");
         }
 
-        // ✅ When selecting row
+        //  When selecting row
         private void dgvItems_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvItems.CurrentRow == null) return;
@@ -126,7 +126,7 @@ namespace ItemClientWinForms
             txtUnitPrice.Clear();
         }
 
-        // ✅ FIXED SEARCH — case-insensitive & no crash
+        //  FIXED SEARCH — case-insensitive & no crash
         private void btnSearch_Click(object sender, EventArgs e)
         {
             string q = txtSearch.Text.Trim().ToLower();
