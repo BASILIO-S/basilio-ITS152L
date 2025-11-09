@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "G5-M2\\G5M2.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "ItemClientWinForms\\ItemClientWinForms.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
